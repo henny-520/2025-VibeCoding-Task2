@@ -1,322 +1,223 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>個人作品集 | 前端工程師教練的示範網站</title>
-    
-    <style>
-        /*
-        ============================================================
-        【CSS 區塊插槽 START】
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>個人網站骨架</title>
+  <style>
+    /* ──────────────── 全站基礎設定 ──────────────── */
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #fafafa;
+    }
 
-        * 這裡用於放置所有 CSS 程式碼。
-        * 請注意：禁止使用任何 ID 選擇器（#id-name）。
-        * 請使用類別選擇器（.class-name）或元素選擇器。
-        ============================================================
-        */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
 
-        /* CSS Reset & 基本全域設定 */
-        :root {
-            /* 顏色變數 */
-            --color-primary: #1e3a8a; /* 深藍色 */
-            --color-secondary: #fcd34d; /* 琥珀色 */
-            --color-text: #1f2937; /* 接近黑色 */
-            --color-background: #f9fafb; /* 淺灰色背景 */
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-            /* 字體變數 */
-            --font-main: "Arial", "Helvetica", "PingFang TC", "Microsoft JhengHei", sans-serif;
-            --font-size-base: 16px;
-        }
+    /* ──────────────── 導覽列 ──────────────── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: #fff;
+      border-bottom: 1px solid #ddd;
+    }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    .nav-logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
 
-        body {
-            font-family: var(--font-main);
-            font-size: var(--font-size-base);
-            line-height: 1.6;
-            color: var(--color-text);
-            background-color: var(--color-background);
-        }
+    .nav-link {
+      font-size: 0.9rem;
+    }
 
-        /* 內容容器 */
-        .container {
-            width: 100%;
-            max-width: 1440px; /* 最大寬度限制 */
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 1rem; /* 手機優先，較小的內邊距 */
-            padding-right: 1rem;
-        }
+    /* ──────────────── Hero 區塊 ──────────────── */
+    .section-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1rem;
+      background-image: url('https://source.unsplash.com/1600x900/?nature,water');
+      background-size: cover;
+      background-position: center;
+      color: #fff;
+    }
 
-        /* 導覽列樣式 */
-        .nav-header {
-            background-color: var(--color-primary);
-            color: white;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    .section-hero h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .section-hero p {
+      max-width: 600px;
+      font-size: 1rem;
+    }
 
-        .nav-logo a {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
+    /* ──────────────── 關於我 ──────────────── */
+    .section-about {
+      padding: 3rem 1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
 
-        .nav-menu {
-            /* 在手機上隱藏選單，只顯示 Logo/Title */
-            display: none; 
-        }
+    .section-about h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
 
-        .nav-menu-list {
-            list-style: none;
-            display: flex;
-            gap: 1.5rem;
-        }
+    .section-about p {
+      font-size: 1rem;
+      text-align: justify;
+    }
 
-        .nav-link {
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
-        }
+    /* ──────────────── 作品集 ──────────────── */
+    .section-portfolio {
+      padding: 3rem 1rem;
+      background-color: #f0f0f0;
+    }
 
-        .nav-link:hover {
-            color: var(--color-secondary);
-        }
+    .section-portfolio h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
 
-        /* 區塊標題通用樣式 */
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
-            color: var(--color-primary);
-            padding-top: 1rem; /* 給錨點跳轉留空間 */
-        }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
 
-        /* 區塊間距 */
-        .section-padding {
-            padding: 3rem 0; /* 手機優先的上下間距 */
-        }
+    .portfolio-item {
+      background-color: #fff;
+      padding: 1rem;
+      border: 1px solid #ddd;
+    }
 
-        /* 圖片樣式（Unsplash Placeholder） */
-        .image-placeholder {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 0.5rem;
-            object-fit: cover;
-        }
+    .portfolio-item img {
+      margin-bottom: 0.5rem;
+    }
 
-        /* 主要按鈕樣式 */
-        .button-primary {
-            display: inline-block;
-            background-color: var(--color-secondary);
-            color: var(--color-text);
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.25rem;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+    /* ──────────────── 聯絡我 ──────────────── */
+    .section-contact {
+      padding: 3rem 1rem;
+      text-align: center;
+    }
 
-        .button-primary:hover {
-            background-color: #fbbf24; /* 稍微深一點的琥珀色 */
-        }
+    .section-contact h2 {
+      margin-bottom: 1rem;
+    }
 
-        /* Hero 區塊樣式 */
-        .section-hero {
-            text-align: center;
-            padding: 5rem 0;
-            background-color: white;
-        }
+    .section-contact p {
+      margin-bottom: 0.5rem;
+    }
 
-        .hero-content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--color-primary);
-        }
+    /* ──────────────── 頁尾 ──────────────── */
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #222;
+      color: #fff;
+      font-size: 0.8rem;
+    }
 
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* 頁腳樣式 */
-        .footer {
-            background-color: var(--color-text);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            font-size: 0.875rem;
-        }
+    /* ──────────────── RWD 響應式 ──────────────── */
+    @media (min-width: 768px) {
+      .section-hero h1 {
+        font-size: 3rem;
+      }
 
-        /* =======================================================
-           RWD：平板 (Min-width: 768px)
-           ======================================================= */
-        @media (min-width: 768px) {
-            .container {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
+      .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-            .section-padding {
-                padding: 5rem 0; /* 平板/桌面增加間距 */
-            }
+    @media (min-width: 1440px) {
+      .portfolio-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
-            /* 導覽列：在平板以上顯示選單 */
-            .nav-menu {
-                display: block;
-            }
-
-            .hero-content h1 {
-                font-size: 3.5rem;
-            }
-        }
-
-        /* =======================================================
-           RWD：桌面 (Min-width: 1440px)
-           ======================================================= */
-        @media (min-width: 1440px) {
-            .container {
-                padding-left: 4rem;
-                padding-right: 4rem;
-            }
-            
-            .hero-content h1 {
-                font-size: 4rem;
-            }
-        }
-
-        /*
-        ============================================================
-        【CSS 區塊插槽 END】
-        ============================================================
-        */
-    </style>
+    /* ──────────────── CSS 插槽 ──────────────── */
+    /* 開發者可在此新增自訂樣式 */
+  </style>
 </head>
 <body>
+  <!-- 導覽列 -->
+  <nav class="nav">
+    <div class="nav-logo">我的網站</div>
+    <div class="nav-links">
+      <a href="#hero" class="nav-link">首頁</a>
+      <a href="#about" class="nav-link">關於我</a>
+      <a href="#portfolio" class="nav-link">作品集</a>
+      <a href="#contact" class="nav-link">聯絡我</a>
+    </div>
+  </nav>
 
-    <header class="nav-header">
-        <div class="container nav-content">
-            <div class="nav-logo">
-                <a href="#hero">Peter's Portfolio</a>
-            </div>
-            
-            <nav class="nav-menu" aria-label="主要導覽">
-                <ul class="nav-menu-list">
-                    <li><a href="#about" class="nav-link">關於我</a></li>
-                    <li><a href="#skills" class="nav-link">技能</a></li>
-                    <li><a href="#portfolio" class="nav-link">作品集</a></li>
-                    <li><a href="#contact" class="nav-link">聯絡我</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- Hero 區塊 -->
+  <section id="hero" class="section-hero">
+    <h1>歡迎來到我的個人網站</h1>
+    <p>這裡是簡單的介紹文字插槽，未來可替換成更完整的敘述。</p>
+  </section>
 
-    <main>
-        <section id="hero" class="section-hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>嗨，我是 Peter Chen，一位熱愛前端的工程師。</h1>
-                    <p>我專注於打造高效能、易維護且具備優異使用者體驗的網站應用程式。</p>
-                    <a href="#portfolio" class="button-primary">查看我的作品</a>
-                </div>
-            </div>
-        </section>
+  <!-- 關於我 -->
+  <section id="about" class="section-about">
+    <h2>關於我</h2>
+    <p>這裡是關於我的文字插槽，開發者可在此放入自我介紹、經歷或理念。</p>
+  </section>
 
-        <section id="about" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">關於我</h2>
-                <div class="about-content">
-                    <img src="https://source.unsplash.com/random/400x500?portrait" alt="個人專業照片" class="image-placeholder" style="max-width: 300px; margin: 0 auto 2rem;">
-                    <p>
-                        在過去五年中，我擔任前端開發人員，擅長將設計稿精確轉化為像素級完美的網頁介面。
-                        我的核心技能包括 HTML5, CSS3, 響應式網頁設計 (RWD) 和網頁效能優化。
-                        我堅信，優良的網站架構是高品質產品的基石。
-                    </p>
-                    <p>
-                        除了技術開發，我也樂於分享知識，並透過擔任技術部落格作者，幫助新手釐清前端學習路徑中的各種挑戰。
-                    </p>
-                </div>
-            </div>
-        </section>
+  <!-- 作品集 -->
+  <section id="portfolio" class="section-portfolio">
+    <h2>作品集</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">
+        <img src="https://source.unsplash.com/400x300/?design" alt="作品示意圖">
+        <p>作品描述插槽</p>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://source.unsplash.com/400x300/?technology" alt="作品示意圖">
+        <p>作品描述插槽</p>
+      </div>
+      <div class="portfolio-item">
+        <img src="https://source.unsplash.com/400x300/?art" alt="作品示意圖">
+        <p>作品描述插槽</p>
+      </div>
+    </div>
+  </section>
 
-        <section id="skills" class="section-padding" style="background-color: white;">
-            <div class="container">
-                <h2 class="section-title">核心技能</h2>
-                <div class="skills-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem;">
-                    <div class="skill-item" style="text-align: center; width: 100%; max-width: 200px;">
-                        <img src="https://source.unsplash.com/random/100x100?html,css" alt="HTML/CSS 圖示" style="width: 60px; height: 60px; margin-bottom: 0.5rem;">
-                        <h3>HTML & CSS</h3>
-                        <p>語義化標籤與高效能 CSS 撰寫。</p>
-                    </div>
-                    <div class="skill-item" style="text-align: center; width: 100%; max-width: 200px;">
-                        <img src="https://source.unsplash.com/random/100x100?responsive-design" alt="RWD 圖示" style="width: 60px; height: 60px; margin-bottom: 0.5rem;">
-                        <h3>響應式設計 (RWD)</h3>
-                        <p>手機優先策略，確保各裝置完美呈現。</p>
-                    </div>
-                    <div class="skill-item" style="text-align: center; width: 100%; max-width: 200px;">
-                        <img src="https://source.unsplash.com/random/100x100?ui,ux" alt="UI/UX 圖示" style="width: 60px; height: 60px; margin-bottom: 0.5rem;">
-                        <h3>UI/UX 實作</h3>
-                        <p>注重使用者體驗與介面可近性。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- 聯絡我 -->
+  <section id="contact" class="section-contact">
+    <h2>聯絡我</h2>
+    <p>電子郵件插槽：example@mail.com</p>
+    <p>社群連結插槽：Facebook / Instagram / LinkedIn</p>
+  </section>
 
-        <section id="portfolio" class="section-padding">
-            <div class="container">
-                <h2 class="section-title">精選作品集</h2>
-                <div class="portfolio-grid" style="display: grid; gap: 2rem; grid-template-columns: 1fr;">
-                    <div class="portfolio-item">
-                        <img src="https://source.unsplash.com/random/800x600?website-design" alt="作品圖 1" class="image-placeholder">
-                        <h3 style="margin-top: 1rem;">企業形象網站重構</h3>
-                        <p>將舊版網站全面優化，載入速度提升 40%。</p>
-                    </div>
-                    <div class="portfolio-item">
-                        <img src="https://source.unsplash.com/random/800x600?dashboard" alt="作品圖 2" class="image-placeholder">
-                        <h3 style="margin-top: 1rem;">輕量級數據儀表板</h3>
-                        <p>專為移動裝置設計的管理介面，確保資訊一目瞭然。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- 頁尾 -->
+  <footer class="footer">
+    <p>© 2025 我的個人網站. 保留所有權利。</p>
+  </footer>
 
-        <section id="contact" class="section-padding" style="background-color: white;">
-            <div class="container" style="text-align: center;">
-                <h2 class="section-title">聯絡我</h2>
-                <p style="margin-bottom: 2rem; font-size: 1.1rem;">對我的作品或經驗感興趣？隨時歡迎聯繫我討論合作機會！</p>
-                <a href="mailto:contact@example.com" class="button-primary">寄送電子郵件</a>
-            </div>
-        </section>
-        
-        </main>
-
-    <footer class="footer">
-        <div class="container">
-            &copy; 2025 Peter Chen. All Rights Reserved.
-        </div>
-    </footer>
-
+  <!-- HTML 插槽 -->
+  <!-- 開發者可在此新增額外區塊 -->
 </body>
 </html>
